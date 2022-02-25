@@ -9,5 +9,5 @@ HousePriceDF=HousePriceDF.drop(['Alley','Fence','MiscFeature','PoolQC'],axis =1 
 
 HousePriceDF['LotFrontage'] = HousePriceDF['LotFrontage'].fillna(HousePriceDF.groupby('Neighborhood')['LotFrontage'].transform('mean'))
 
-
+HousePriceDF.loc[HousePriceDF["Fireplaces"] == 0, "FireplaceQu"] = np.nan
 
