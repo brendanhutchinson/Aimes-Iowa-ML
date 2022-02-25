@@ -10,7 +10,11 @@ HousePriceDF=HousePriceDF.drop(['Alley','Fence','MiscFeature','PoolQC'],axis =1 
 
 # impute frontage based on mean for the neighborhood 
 HousePriceDF['LotFrontage'] = HousePriceDF['LotFrontage'].fillna(HousePriceDF.groupby('Neighborhood')['LotFrontage'].transform('mean'))
-
+HousePriceDF.loc[HousePriceDF['MSSubClass']==120, ['LotFrontage']].mean()
+HousePriceDF.loc[HousePriceDF['MSSubClass']==160, ['LotFrontage']].mean()
+HousePriceDF.iloc[1204,6] = 29.0
+lotrow = [109,683]
+HousePriceDF.loc[lotrow,['LotFrontage']]  = 46.0
 
 # change FireplaceQu to 'None' for non existent fireplaces 
 HousePriceDF.loc[HousePriceDF["Fireplaces"] == 0, "FireplaceQu"] = 'None'
@@ -32,6 +36,23 @@ HousePriceDF.iloc[912,36] = 0
 HousePriceDF.iloc[912,36] = 0
 HousePriceDF.iloc[912,38:41] = 0 
 
+HousePriceDF.iloc[912,48:50] = 0
+
+HousePriceDF.iloc[2308,48:50] = 0
+
+HousePriceDF.iloc[2442,44] = 'SBrkr'
+
+HousePriceDF.iloc[358,27:29] = 'None'
+HousePriceDF.iloc[1355,27:29] = 'None'
+
+# MasVnrType/Area cleaning 
+HousePriceDF.loc[(HousePriceDF['Exterior2nd']== 'VinylSd' )&(HousePriceDF.MasVnrType.isna()==True), ['MasVnrType', 'MasVnrArea']] = 'None'
+
+# Electrical cleaning
+HousePriceDF.iloc[2442,44] = 'SBrkr'
+
+
+
 
 # cleaning up the Garage columns 
 HousePriceDF['GarageType'].loc[433] = "None"
@@ -48,6 +69,7 @@ HousePriceDF["GarageCond"].loc[531] = "TA"
 
 # DO NOT UNCOMMENT THIS UNTIL SURE WE ARE DONE IMPUTING 
 #HousePriceDF.fillna('None', inplace=True)
+
 
 
 
