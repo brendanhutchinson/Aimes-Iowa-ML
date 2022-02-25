@@ -57,6 +57,10 @@ HousePriceDF.iloc[2442,44] = 'SBrkr'
 # cleaning up the Garage columns 
 HousePriceDF['GarageType'].loc[433] = "None"
 
+HousePriceDF['GarageCars'].loc[433] = 0.0
+
+HousePriceDF['GarageArea'].loc[433] = 0.0
+
 HousePriceDF["GarageYrBlt"].loc[531] = 1983
 
 HousePriceDF["GarageFinish"].loc[531] = "Unf"

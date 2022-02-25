@@ -25,6 +25,9 @@ garage.loc[(garage["GarageType"].notnull()) & garage["GarageYrBlt"].isna()]
 
 HousePriceDF['GarageType'].loc[433] = "None"
 
+HousePriceDF['GarageCars'].loc[433] = 0.0
+
+HousePriceDF['GarageArea'].loc[433] = 0.0
 
 
 HousePriceDF["GarageYrBlt"].loc[531] = 1983
