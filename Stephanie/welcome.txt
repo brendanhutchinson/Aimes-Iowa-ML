@@ -1,3 +1,46 @@
 Let's get started on this beast. 
 
 
+
+
+GarageType: 
+Attchd     1527
+Detchd      715
+BuiltIn     153
+None        128
+Basment      27
+2Types       21
+CarPort       9
+
+GarageArea: 
+2.0     1439
+1.0      713
+3.0      285
+0.0      127
+4.0       14
+None       1
+5.0        1
+
+
+HousePriceDF['GarageCars'].loc[433] = 0.0
+
+
+HousePriceDF['GarageArea'].loc[433] = 0.0
+
+
+
+GarageQual: 
+TA      2313
+None     128
+Fa       110
+Gd        22
+Po         4
+Ex         3
+
+GarageCond:
+TA      2357
+None     128
+Fa        67
+Gd        14
+Po        11
+Ex         3

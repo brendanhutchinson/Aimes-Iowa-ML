@@ -55,20 +55,27 @@ HousePriceDF.iloc[2442,44] = 'SBrkr'
 
 
 # cleaning up the Garage columns 
-HousePriceDF['GarageType'].loc[433] = "None"
+HousePriceDF['GarageType'].iloc[433] = "None"
 
-HousePriceDF["GarageYrBlt"].loc[531] = 1983
+HousePriceDF['GarageCars'].iloc[433] = 0.0 	#maintain float
 
-HousePriceDF["GarageFinish"].loc[531] = "Unf"
+HousePriceDF['GarageArea'].iloc[433] = 0.0  #maintain float 
 
-HousePriceDF["GarageQual"].loc[531] = "TA"
+HousePriceDF["GarageYrBlt"].iloc[531] = 1983
 
-HousePriceDF["GarageCond"].loc[531] = "TA"
+HousePriceDF["GarageFinish"].iloc[531] = "Unf"
 
+HousePriceDF["GarageQual"].iloc[531] = "TA"
+
+HousePriceDF["GarageCond"].iloc[531] = "TA"
+
+
+# replace emtpy GarageYrBlt with YearBuilt for missing garages to maintin float 
+HousePriceDF['GarageYrBlt'].fillna(HousePriceDF['YearBuilt'], inplace=True)
 
 
 # DO NOT UNCOMMENT THIS UNTIL SURE WE ARE DONE IMPUTING 
-#HousePriceDF.fillna('None', inplace=True)
+HousePriceDF.fillna('None', inplace=True)
 
 
 
