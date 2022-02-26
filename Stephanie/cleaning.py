@@ -46,7 +46,8 @@ HousePriceDF.iloc[358,27:29] = 'None'
 HousePriceDF.iloc[1355,27:29] = 'None'
 
 # MasVnrType/Area cleaning 
-HousePriceDF.loc[(HousePriceDF['Exterior2nd']== 'VinylSd' )&(HousePriceDF.MasVnrType.isna()==True), ['MasVnrType', 'MasVnrArea']] = 'None'
+HousePriceDF.loc[(HousePriceDF['Exterior2nd']== 'VinylSd' )&(HousePriceDF.MasVnrType.isna()==True), ['MasVnrType' ]] = 'None'
+HousePriceDF.loc[(HousePriceDF['Exterior2nd']== 'VinylSd' )&(HousePriceDF.MasVnrType.isna()==True), ['MasVnrArea' ]] = 0
 
 # Electrical cleaning
 HousePriceDF.iloc[2442,44] = 'SBrkr'
@@ -57,9 +58,9 @@ HousePriceDF.iloc[2442,44] = 'SBrkr'
 # cleaning up the Garage columns 
 HousePriceDF['GarageType'].iloc[433] = "None"
 
-HousePriceDF['GarageCars'].iloc[433] = 0.0
+HousePriceDF['GarageCars'].iloc[433] = 0.0 	#maintain float
 
-HousePriceDF['GarageArea'].iloc[433] = 0.0
+HousePriceDF['GarageArea'].iloc[433] = 0.0  #maintain float 
 
 HousePriceDF["GarageYrBlt"].iloc[531] = 1983
 
@@ -70,5 +71,9 @@ HousePriceDF["GarageQual"].iloc[531] = "TA"
 HousePriceDF["GarageCond"].iloc[531] = "TA"
 
 
+# replace emtpy GarageYrBlt with YearBuilt for missing garages to maintin float 
 HousePriceDF['GarageYrBlt'].fillna(HousePriceDF['YearBuilt'], inplace=True)
 
+
+# DO NOT UNCOMMENT THIS UNTIL SURE WE ARE DONE IMPUTING 
+HousePriceDF.fillna('None', inplace=True)

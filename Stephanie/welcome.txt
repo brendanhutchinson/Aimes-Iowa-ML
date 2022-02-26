@@ -1,46 +1,97 @@
-Let's get started on this beast. 
+Columns to drop: 
+MSSubClass 
+
+LandSlope? may be similar to land contour 
+Functional ? may relate to condition
+SaleType?  look at correlation with sale price 
+
+
+
+Columns to create: 
+
+???TotalLivingSF  = GrLiv? + (TotBmtSF - BsmtUnf) ????
+
+TotalSF = liv + totalbsmt + total garage 
+
+TotalBaths = full + 0.5 * half 
+
+Years since remodel = YrSold - YrRemod
 
 
 
 
-GarageType: 
-Attchd     1527
-Detchd      715
-BuiltIn     153
-None        128
-Basment      27
-2Types       21
-CarPort       9
-
-GarageArea: 
-2.0     1439
-1.0      713
-3.0      285
-0.0      127
-4.0       14
-None       1
-5.0        1
+Pool: binary 
+PoolArea != 0   1 
+else 0 
+drop PoolArea 
 
 
-HousePriceDF['GarageCars'].loc[433] = 0.0
-
-
-HousePriceDF['GarageArea'].loc[433] = 0.0
+MiscFeature: binary 
+MiscVal != 0   1
+else 0 
+drop MiscVal
 
 
 
-GarageQual: 
-TA      2313
-None     128
-Fa       110
-Gd        22
-Po         4
-Ex         3
 
-GarageCond:
-TA      2357
-None     128
-Fa        67
-Gd        14
-Po        11
-Ex         3
+MSZoining: how to combine? 
+residential vs OTHER 
+floating village? 
+
+
+- Street: make binary (paved)
+
+- LotShape: regular 1, irregular 0 
+
+- LandContour: binary Lvl 1, other 0 
+
+- Utilities: binary AllPub 1, other 0 
+
+- LandSlope: binary gentle 1, others 0 
+
+- Central Air: Binary 
+
+- Electrial: Binary Breaker 1, 0 (Fuse)
+
+- Paved Driveway: binary Paved 1, N/P 0 
+
+- Sale Condition? binary Normal 1, other 0 
+
+
+
+
+
+
+
+LotConfig: 
+combine FR2 & FR3, dummify 4 values 
+
+Condition 1: combine RR &  Pos, dummify 5 
+
+Condition2:  combine like C1 and possibly drop due to collinearity 
+
+Exterior 1st & 2nd: combine cement, brick, other shingles and dummify 
+
+MasVnrType: Dummify 
+
+Heating: Gas, Steam, Other 
+
+BsmtFullBath: 0, 1, 2+
+
+
+
+
+BldType: dummify 
+
+RoofMatl:  combine & dummify
+CompShg
+Tar&Grv
+Wood (combine)
+OTher (all others)
+
+
+
+GarageType:   Dummify 
+
+
+
