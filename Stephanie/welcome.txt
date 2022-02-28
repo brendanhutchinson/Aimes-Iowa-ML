@@ -2,7 +2,7 @@ Columns to drop:
 MSSubClass 
 
 LandSlope? may be similar to land contour 
-Functional ? may relate to condition
+Functional? may relate to condition
 SaleType?  look at correlation with sale price 
 
 
@@ -16,9 +16,9 @@ TotalSF = liv + totalbsmt + total garage
 TotalBaths = full + 0.5 * half 
 
 Years since remodel = YrSold - YrRemod
+drop YrRemod
 
-
-
+? Age = YrSold - YearBuilt ?  
 
 Pool: binary 
 PoolArea != 0   1 
@@ -63,25 +63,28 @@ floating village?
 
 
 
-LotConfig: 
-combine FR2 & FR3, dummify 4 values 
+LotConfig:  dummify 4 values 
+
 
 Condition 1: combine RR &  Pos, dummify 5 
 
 Condition2:  combine like C1 and possibly drop due to collinearity 
 
+
 Exterior 1st & 2nd: combine cement, brick, other shingles and dummify 
 
-MasVnrType: Dummify 
-
-Heating: Gas, Steam, Other 
-
-BsmtFullBath: 0, 1, 2+
 
 
+{'BrkComm': 'Brick', 
+'BrikFace' : 'Brick', 
+'Stucco': 'Cement', 
+'ImStucco': 'Cement', 
+'PreCast': 'Cement', 
+'CBlock': 'Cement', 
+'AsphShn' :'OtherShg', 
+'AsbShng': 'OtherShg'
+}
 
-
-BldType: dummify 
 
 RoofMatl:  combine & dummify
 CompShg
@@ -90,6 +93,16 @@ Wood (combine)
 OTher (all others)
 
 
+
+Heating: Gas, Steam, Other 
+
+
+
+
+
+MasVnrType: Dummify 
+
+BldType: dummify 
 
 GarageType:   Dummify 
 

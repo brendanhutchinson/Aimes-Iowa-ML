@@ -109,3 +109,40 @@ HousePriceDF.replace({"MSZoning":MSZoningDict},inplace = True)
 
 ## LotConfig
 HousePriceDF['LotConfig'] = np.where((HousePriceDF['LotConfig'] == "FR2") | (HousePriceDF['LotConfig'] == "FR3"), "FR", HousePriceDF['LotConfig'])
+
+# combine values in Exterior columns
+
+HousePriceDF.Exterior1st = HousePriceDF.Exterior1st.map({
+    'VinylSd' : 'VinylSd', 
+    'HdBoard' : 'CompBoard', 
+    'MetalSd' : 'MetalSd', 
+    'Wd Sdng' : 'Wood', 
+    'Plywood' : 'Wood', 
+    'WdShing' : 'Wood',
+    'CemntBd' : 'CompBoard', 
+    'BrkComm' : 'Brick', 
+    'BrkFace' : 'Brick', 
+    'Stucco' : 'Cement', 
+    'ImStucc' : 'Cement', 
+    'PreCast' : 'Cement', 
+    'CBlock' : 'Cement', 
+    'AsphShn' :'Other', 
+    'AsbShng' : 'Other'})
+
+HousePriceDF.Exterior2nd = HousePriceDF.Exterior2nd.map({
+    'VinylSd' : 'VinylSd', 
+    'HdBoard' : "CompBoard", 
+    'MetalSd' : 'MetalSd', 
+    'Wd Sdng' : 'Wood', 
+    'Plywood' : 'Wood', 
+    'Wd Shng' : 'Wood',
+    'CmentBd' : 'CompBoard', 
+    'Brk Cmn' : 'Brick', 
+    'BrkFace' : 'Brick', 
+    'Stucco' : 'Cement', 
+    'ImStucc' : 'Cement', 
+    'PreCast' : 'Cement', 
+    'CBlock' : 'Cement', 
+    'AsphShn' :'Other', 
+    'AsbShng' : 'Other',
+    'Stone' : 'Other'})
