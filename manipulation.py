@@ -67,3 +67,25 @@ HousePriceDF.replace({"ExterQual": QualDict,'ExterCond':QualDict},inplace=True)
 HousePriceDF.replace({"FireplaceQu": GarageQDict},inplace=True)
 
 
+# roof material 
+roofdict = {'WdShake': 'wood','WdShngl' :'wood','Metal':'other','Roll':'other','Membran':'other'}
+HousePriceDF.replace({"RoofMatl": roofdict},inplace=True)
+
+## heating 
+heatingdict = {'Grav':'other','Wall':'other','OthW':'other','Floor':'other'}
+HousePriceDF.replace({"Heating": heatingdict},inplace=True)
+
+
+
+# functional 
+funct_dict = {'Typ':0, 'Min1':1,'Min2':2,'Mod':3,'Maj1':4,'Maj2':5,'Sal':6}
+HousePriceDF.replace({"Functional": funct_dict},inplace=True)
+
+## foundation
+found_dict = {'Stone':'other','Wood':'other'}
+HousePriceDF.replace({"Foundation": found_dict},inplace=True)
+
+## Sale type 
+SaleTypeDict = {'New':'New','COD':'COD','ConLD':'Con','CWD':'WD','ConLI':'Con','Con':'Con','Oth':'Con','VWD':'WD','ConLw':'Con','WD ':'WD'}
+HousePriceDF.replace({"SaleType": SaleTypeDict},inplace = True)
+
