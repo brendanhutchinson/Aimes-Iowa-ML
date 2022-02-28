@@ -89,3 +89,10 @@ HousePriceDF.replace({"Foundation": found_dict},inplace=True)
 SaleTypeDict = {'New':'New','COD':'COD','ConLD':'Con','CWD':'WD','ConLI':'Con','Con':'Con','Oth':'Con','VWD':'WD','ConLw':'Con','WD ':'WD'}
 HousePriceDF.replace({"SaleType": SaleTypeDict},inplace = True)
 
+# Condition 1
+Condition1Dict = {'Norm':'Norm','Feedr':'Feedr','Artery':'Artery','RRAn':'RR','PosN':'Pos','RRAe':'RR','PosA':'Pos','RRNn':'RR','RRNe':'RR'}
+HousePriceDF.replace({"Condition1": Condition1Dict},inplace = True)
+
+# Condition 2
+Condition2Dict = {'Norm':'Norm','Feedr':'Feedr','PosN':'Pos','Artery':'Artery','PosA':'Pos','RRNn':'RR','RRAn':'RR','RRAe':'RR'}
+HousePriceDF.replace({"Condition2": Condition2Dict},inplace = True)
