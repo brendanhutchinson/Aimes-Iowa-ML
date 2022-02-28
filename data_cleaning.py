@@ -2,7 +2,7 @@ import pandas as pd
 import numpy as np 
 pd.options.display.max_rows = 100
 
-HousePriceDF = pd.read_csv("Aimes-Iowa-ML\\Ames_HousePrice.csv")
+HousePriceDF = pd.read_csv("Ames_HousePrice.csv")
 
 
 # drop columns with over 98% missing values 
@@ -42,12 +42,14 @@ HousePriceDF.iloc[2308,48:50] = 0
 
 HousePriceDF.iloc[2442,44] = 'SBrkr'
 
-HousePriceDF.iloc[358,27:29] = 'None'
-HousePriceDF.iloc[1355,27:29] = 'None'
 
 # MasVnrType/Area cleaning 
 HousePriceDF.loc[(HousePriceDF['Exterior2nd']== 'VinylSd' )&(HousePriceDF.MasVnrType.isna()==True), ['MasVnrType' ]] = 'None'
 HousePriceDF.loc[(HousePriceDF['Exterior2nd']== 'VinylSd' )&(HousePriceDF.MasVnrType.isna()==True), ['MasVnrArea' ]] = 0
+HousePriceDF.iloc[358,27:28] = 'None'
+HousePriceDF.iloc[1355,27:28] = 'None'
+
+HousePriceDF.MasVnrArea.apply(lambda x:  0 if x == 'None' else x)
 # Electrical cleaning
 HousePriceDF.iloc[2442,44] = 'SBrkr'
 
