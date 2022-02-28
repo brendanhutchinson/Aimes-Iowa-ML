@@ -7,6 +7,8 @@ Created on Sat Feb 26 16:11:15 2022
 """
 
 #import cleaning.py
+import numpy as np
+import pandas as pd
 
 # Change to boolean columns
 
@@ -104,3 +106,6 @@ HousePriceDF['MSSubClass'] = HousePriceDF['MSSubClass'].astype('str')
 ## MSZoning
 MSZoningDict = {'RL':'RL', 'C (all)':'Other', 'RM':'RM', 'FV':'FV', 'RH':'RH', 'I (all)':'Other', 'A (agr)':'Other'}
 HousePriceDF.replace({"MSZoning":MSZoningDict},inplace = True)
+
+## LotConfig
+HousePriceDF['LotConfig'] = np.where((HousePriceDF['LotConfig'] == "FR2") | (HousePriceDF['LotConfig'] == "FR3"), "FR", HousePriceDF['LotConfig'])
