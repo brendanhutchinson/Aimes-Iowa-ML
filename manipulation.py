@@ -3,7 +3,7 @@
 """
 Created on Sat Feb 26 16:11:15 2022
 
-@author: mcmahon
+@author: mcmahon / Brendan/ Francesco / Yuni 
 """
 
 #import cleaning.py
@@ -96,3 +96,11 @@ HousePriceDF.replace({"Condition1": Condition1Dict},inplace = True)
 # Condition 2
 Condition2Dict = {'Norm':'Norm','Feedr':'Feedr','PosN':'Pos','Artery':'Artery','PosA':'Pos','RRNn':'RR','RRAn':'RR','RRAe':'RR'}
 HousePriceDF.replace({"Condition2": Condition2Dict},inplace = True)
+
+
+## MSSUB class int - string 
+HousePriceDF['MSSubClass'] = HousePriceDF['MSSubClass'].astype('str')
+
+## MSZoning
+MSZoningDict = {'RL':'RL', 'C (all)':'Other', 'RM':'RM', 'FV':'FV', 'RH':'RH', 'I (all)':'Other', 'A (agr)':'Other'}
+HousePriceDF.replace({"MSZoning":MSZoningDict},inplace = True)
