@@ -68,6 +68,10 @@ HousePriceDF.replace({"ExterQual": QualDict,'ExterCond':QualDict},inplace=True)
 
 HousePriceDF.replace({"FireplaceQu": GarageQDict},inplace=True)
 
+## fireplace encoding : 0 ,1 ,2 = 2 + 
+    FireplacesDict = {0:0,1:1,2:2,3:2,4:2}
+HousePriceDF.replace({"Fireplaces": FireplacesDict}, inplace=True)
+
 
 # roof material 
 roofdict = {'WdShake': 'wood','WdShngl' :'wood','Metal':'other','Roll':'other','Membran':'other'}
@@ -146,3 +150,12 @@ HousePriceDF.Exterior2nd = HousePriceDF.Exterior2nd.map({
     'AsphShn' :'Other', 
     'AsbShng' : 'Other',
     'Stone' : 'Other'})
+
+
+
+
+
+
+
+
+
