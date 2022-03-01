@@ -49,7 +49,7 @@ HousePriceDF.loc[(HousePriceDF['Exterior2nd']== 'VinylSd' )&(HousePriceDF.MasVnr
 HousePriceDF.iloc[358,27:28] = 'None'
 HousePriceDF.iloc[1355,27:28] = 'None'
 
-HousePriceDF.MasVnrArea.apply(lambda x:  0 if x == 'None' else x)
+HousePriceDF.MasVnrArea = HousePriceDF.MasVnrArea.apply(lambda x:  0 if x == 'None' else x)
 # Electrical cleaning
 HousePriceDF.iloc[2442,44] = 'SBrkr'
 
