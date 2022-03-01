@@ -158,25 +158,25 @@ HousePriceDF.Exterior2nd = HousePriceDF.Exterior2nd.map({
 HousePriceDF['YrSinceRm'] = HousePriceDF.YrSold - HousePriceDF.YearRemodAdd
 
 
-# binary value for pool and misc feature - drop PoolArea & MiscVal from Df
+# binary value for pool and misc feature - drop PoolArea & MiscVal from DF
 
-HousePriceDf['Pool'] = HousePriceDF.PoolArea.apply(lambda x: 0 if x==0 else 1)
+HousePriceDF['Pool'] = HousePriceDF.PoolArea.apply(lambda x: 0 if x==0 else 1)
 
-HousePriceDf['Misc'] = HousePriceDF.MiscVal.apply(lambda x: 0 if x==0 else 1)
+HousePriceDF['Misc'] = HousePriceDF.MiscVal.apply(lambda x: 0 if x==0 else 1)
 
 
 # Finished basement square footage
-HousePriceDF['BsmtFinTotSF'] = HousePriceDF.TotalBsmtSF - HousePriceCF.BsmtUnfSF
+HousePriceDF['BsmtFinTotSF'] = HousePriceDF.TotalBsmtSF - HousePriceDF.BsmtUnfSF
 
 
 # Total Square Footage
 HousePriceDF['TotalSF'] = (HousePriceDF.GrLivArea + 
-                        HousePriceDf.TotalBsmtSF + 
+                        HousePriceDF.TotalBsmtSF + 
                         HousePriceDF.GarageArea)
 
 # Total Baths
-HousePriceDF['TotalBath'] = ((HousePriceDF.FullBath + HousePriceDf.BsmtFullBath) +
-                          0.5 * (HousePriceDf.HalfBath + HousePriceDf.BsmtHalfBath))
+HousePriceDF['TotalBath'] = ((HousePriceDF.FullBath + HousePriceDF.BsmtFullBath) +
+                          0.5 * (HousePriceDF.HalfBath + HousePriceDF.BsmtHalfBath))
 
 
 
