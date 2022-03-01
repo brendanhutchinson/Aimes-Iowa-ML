@@ -6,7 +6,7 @@ Created on Sat Feb 26 16:11:15 2022
 @author: mcmahon / Brendan/ Francesco / Yuni 
 """
 
-#import cleaning.py
+from data_cleaning import *
 import numpy as np
 import pandas as pd
 
