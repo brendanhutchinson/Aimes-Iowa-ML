@@ -49,8 +49,9 @@ HousePriceDF.loc[(HousePriceDF['Exterior2nd']== 'VinylSd' )&(HousePriceDF.MasVnr
 HousePriceDF.loc[(HousePriceDF['Exterior2nd']== 'VinylSd' )&(HousePriceDF.MasVnrType.isna()==True), ['MasVnrArea' ]] = 0
 HousePriceDF.iloc[358,27:28] = 'None'
 HousePriceDF.iloc[1355,27:28] = 'None'
+HousePriceDF.MasVnrArea.fillna(0, inplace=True)
 
-HousePriceDF.MasVnrArea = HousePriceDF.MasVnrArea.apply(lambda x:  0 if x == 'None' else x)
+
 # Electrical cleaning
 HousePriceDF.iloc[2442,44] = 'SBrkr'
 
