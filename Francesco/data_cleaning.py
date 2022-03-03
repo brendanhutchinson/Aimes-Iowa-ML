@@ -42,12 +42,15 @@ HousePriceDF.iloc[2308,48:50] = 0
 
 HousePriceDF.iloc[2442,44] = 'SBrkr'
 
-HousePriceDF.iloc[358,27:29] = 'None'
-HousePriceDF.iloc[1355,27:29] = 'None'
 
 # MasVnrType/Area cleaning 
 HousePriceDF.loc[(HousePriceDF['Exterior2nd']== 'VinylSd' )&(HousePriceDF.MasVnrType.isna()==True), ['MasVnrType' ]] = 'None'
 HousePriceDF.loc[(HousePriceDF['Exterior2nd']== 'VinylSd' )&(HousePriceDF.MasVnrType.isna()==True), ['MasVnrArea' ]] = 0
+HousePriceDF.iloc[358,27:28] = 'None'
+HousePriceDF.iloc[1355,27:28] = 'None'
+
+HousePriceDF.MasVnrArea.fillna(0, inplace=True)
+
 # Electrical cleaning
 HousePriceDF.iloc[2442,44] = 'SBrkr'
 
