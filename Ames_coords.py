@@ -78,6 +78,6 @@ for i in range(len(df.latitude)):
     df.loc[ix,'AirportDist']= (geodesic(tup, IowaStateUcoords).miles)
 
 
-
+totaldf.drop_duplicates(subset=['PID'],inplace = True)
 
 #df.to_csv('finaldf.csv')
