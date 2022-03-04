@@ -21,12 +21,12 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler 
 
 
+totaldf = pd.read_csv('finaldf.csv')
 
 
 # set df = whatever the final output of our dataframe is 
 
-df = HousePriceDF
-
+df = totaldf
 
 # lists and sublists of numeric and categorical variables 
 
@@ -39,11 +39,11 @@ numeric_all = ['GrLivArea', 'LotFrontage','LotArea', 'Street', 'LotShape', 'Land
            'TotRmsAbvGrd', 'Functional', 'Fireplaces', 'FireplaceQu', 'GarageYrBlt', 'GarageFinish', 
            'GarageCars', 'GarageArea', 'GarageQual', 'GarageCond', 'PavedDrive', 'WoodDeckSF', 'OpenPorchSF', 
            'EnclosedPorch', '3SsnPorch', 'ScreenPorch', 'PoolArea', 'MiscVal' , 'MoSold', 'YrSold', 
-           'SaleCondition', 'YrSinceRm', 'Pool', 'Misc', 'BsmtFinTotSF', 'TotalSF']
+           'SaleCondition', 'YrSinceRm', 'Pool', 'Misc', 'BsmtFinTotSF', 'TotalSF', 'IAstateDist', 'AirportDist']
 
 categorical_all  = ['MSSubClass', 'MSZoning', 'Neighborhood', 'Condition1', 'Condition2', 'BldgType',
                'HouseStyle', 'RoofStyle', 'RoofMatl', 'Exterior1st' , 'Exterior2nd', 'MasVnrType',
-               'Foundation', 'Heating', 'GarageType','SaleType' , 'LotConfig']
+               'Foundation', 'Heating', 'GarageType','SaleType' , 'LotConfig' ,'SchD_S']
 
 
 # note the winners of the first round of Lasso were all numeric 
@@ -68,7 +68,7 @@ cat_2 = ['Neighborhood', 'MSSubClass', 'Condition1', 'Condition2', 'RoofMatl', '
          'Exterior2nd', 'HouseStyle', 'GarageType']
 # seperating dataframe for modeling 
 
-y = df['SalePrice']
+y = np.log(df['SalePrice']) 
 
 
 # input which subset of numeric & categorical variables to be used 
@@ -77,7 +77,7 @@ numeric = num_2
 categorical = cat_2
 
 
-# DO NOT TOUCH THIS CODE
+# DO NOT TOUCH THIS CODE 
 dummies = pd.get_dummies(df[categorical], drop_first=True)
 
 X = pd.concat([df[numeric], dummies], axis = 1)
