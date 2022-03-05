@@ -179,6 +179,36 @@ HousePriceDF['TotalBath'] = ((HousePriceDF.FullBath + HousePriceDF.BsmtFullBath)
                           0.5 * (HousePriceDF.HalfBath + HousePriceDF.BsmtHalfBath))
 
 
+totaldf = pd.read_csv('finaldf.csv')
+
+
+
+
+# create a years since remodeled column   -  drop YearRemodAdd from DF  
+totaldf['YrSinceRm'] = totaldf.YrSold - totaldf.YearRemodAdd
+
+
+# binary value for pool and misc feature - drop PoolArea & MiscVal from DF
+
+totaldf['Pool'] = totaldf.PoolArea.apply(lambda x: 0 if x==0 else 1)
+
+totaldf['Misc'] = totaldf.MiscVal.apply(lambda x: 0 if x==0 else 1)
+
+
+# Finished basement square footage
+totaldf['BsmtFinTotSF'] = totaldf.TotalBsmtSF - totaldf.BsmtUnfSF
+
+
+# Total Square Footage
+totaldf['TotalSF'] = (totaldf.GrLivArea + 
+                        totaldf.TotalBsmtSF + 
+                        totaldf.GarageArea)
+
+# Total Baths
+totaldf['TotalBath'] = ((totaldf.FullBath + totaldf.BsmtFullBath) +
+                          0.5 * (totaldf.HalfBath + totaldf.BsmtHalfBath))
+
+
 
 
 
