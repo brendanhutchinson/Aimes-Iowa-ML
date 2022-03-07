@@ -2,12 +2,14 @@ Columns to drop:
 MSSubClass 
 
 LandSlope? may be similar to land contour 
-Functional ? may relate to condition
+Functional? may relate to condition
 SaleType?  look at correlation with sale price 
 
 
 
 Columns to create: 
+
+Pull SchD from other dataset ?! 
 
 ???TotalLivingSF  = GrLiv? + (TotBmtSF - BsmtUnf) ????
 
@@ -16,9 +18,9 @@ TotalSF = liv + totalbsmt + total garage
 TotalBaths = full + 0.5 * half 
 
 Years since remodel = YrSold - YrRemod
+drop YrRemod
 
-
-
+? Age = YrSold - YearBuilt ?  
 
 Pool: binary 
 PoolArea != 0   1 
@@ -72,7 +74,7 @@ Condition2:  combine like C1 and possibly drop due to collinearity
 
 Exterior 1st & 2nd: combine cement, brick, other shingles and dummify 
 
-MasVnrType: Dummify 
+
 
 Heating: Gas, Steam, Other 
 
@@ -80,6 +82,7 @@ BsmtFullBath: 0, 1, 2+
 
 
 
+MasVnrType: Dummify 
 
 BldType: dummify 
 

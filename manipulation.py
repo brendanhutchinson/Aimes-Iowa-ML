@@ -3,10 +3,12 @@
 """
 Created on Sat Feb 26 16:11:15 2022
 
-@author: mcmahon
+@author: mcmahon / Brendan/ Francesco / Yuni 
 """
 
-#import cleaning.py
+from data_cleaning import *
+import numpy as np
+import pandas as pd
 
 # Change to boolean columns
 
@@ -65,5 +67,149 @@ HousePriceDF.replace({"ExterQual": QualDict,'ExterCond':QualDict},inplace=True)
 
 
 HousePriceDF.replace({"FireplaceQu": GarageQDict},inplace=True)
+
+## fireplace encoding : 0 ,1 ,2 = 2 + 
+FireplacesDict = {0:0,1:1,2:2,3:2,4:2}
+HousePriceDF.replace({"Fireplaces": FireplacesDict}, inplace=True)
+
+
+# roof material 
+roofdict = {'WdShake': 'wood','WdShngl' :'wood','Metal':'other','Roll':'other','Membran':'other'}
+HousePriceDF.replace({"RoofMatl": roofdict},inplace=True)
+
+## heating 
+heatingdict = {'Grav':'other','Wall':'other','OthW':'other','Floor':'other'}
+HousePriceDF.replace({"Heating": heatingdict},inplace=True)
+
+
+
+# functional 
+funct_dict = {'Typ':0, 'Min1':1,'Min2':2,'Mod':3,'Maj1':4,'Maj2':5,'Sal':6}
+HousePriceDF.replace({"Functional": funct_dict},inplace=True)
+
+## foundation
+found_dict = {'Stone':'other','Wood':'other'}
+HousePriceDF.replace({"Foundation": found_dict},inplace=True)
+
+## Sale type 
+SaleTypeDict = {'New':'New','COD':'COD','ConLD':'Con','CWD':'WD','ConLI':'Con','Con':'Con','Oth':'Con','VWD':'WD','ConLw':'Con','WD ':'WD'}
+HousePriceDF.replace({"SaleType": SaleTypeDict},inplace = True)
+
+# Condition 1
+Condition1Dict = {'Norm':'Norm','Feedr':'Feedr','Artery':'Artery','RRAn':'RR','PosN':'Pos','RRAe':'RR','PosA':'Pos','RRNn':'RR','RRNe':'RR'}
+HousePriceDF.replace({"Condition1": Condition1Dict},inplace = True)
+
+# Condition 2
+Condition2Dict = {'Norm':'Norm','Feedr':'Feedr','PosN':'Pos','Artery':'Artery','PosA':'Pos','RRNn':'RR','RRAn':'RR','RRAe':'RR'}
+HousePriceDF.replace({"Condition2": Condition2Dict},inplace = True)
+
+
+## MSSUB class int - string 
+HousePriceDF['MSSubClass'] = HousePriceDF['MSSubClass'].astype('str')
+
+## MSZoning
+MSZoningDict = {'RL':'RL', 'C (all)':'Other', 'RM':'RM', 'FV':'FV', 'RH':'RH', 'I (all)':'Other', 'A (agr)':'Other'}
+HousePriceDF.replace({"MSZoning":MSZoningDict},inplace = True)
+
+## LotConfig
+HousePriceDF['LotConfig'] = np.where((HousePriceDF['LotConfig'] == "FR2") | (HousePriceDF['LotConfig'] == "FR3"), "FR", HousePriceDF['LotConfig'])
+
+# combine values in Exterior columns
+
+HousePriceDF.Exterior1st = HousePriceDF.Exterior1st.map({
+    'VinylSd' : 'VinylSd', 
+    'HdBoard' : 'CompBoard', 
+    'MetalSd' : 'MetalSd', 
+    'Wd Sdng' : 'Wood', 
+    'Plywood' : 'Wood', 
+    'WdShing' : 'Wood',
+    'CemntBd' : 'CompBoard', 
+    'BrkComm' : 'Brick', 
+    'BrkFace' : 'Brick', 
+    'Stucco' : 'Cement', 
+    'ImStucc' : 'Cement', 
+    'PreCast' : 'Cement', 
+    'CBlock' : 'Cement', 
+    'AsphShn' :'Other', 
+    'AsbShng' : 'Other'})
+
+HousePriceDF.Exterior2nd = HousePriceDF.Exterior2nd.map({
+    'VinylSd' : 'VinylSd', 
+    'HdBoard' : "CompBoard", 
+    'MetalSd' : 'MetalSd', 
+    'Wd Sdng' : 'Wood', 
+    'Plywood' : 'Wood', 
+    'Wd Shng' : 'Wood',
+    'CmentBd' : 'CompBoard', 
+    'Brk Cmn' : 'Brick', 
+    'BrkFace' : 'Brick', 
+    'Stucco' : 'Cement', 
+    'ImStucc' : 'Cement', 
+    'PreCast' : 'Cement', 
+    'CBlock' : 'Cement', 
+    'AsphShn' :'Other', 
+    'AsbShng' : 'Other',
+    'Stone' : 'Other'})
+
+
+# NEW FEATURES
+
+# create a years since remodeled column   -  drop YearRemodAdd from DF  
+HousePriceDF['YrSinceRm'] = HousePriceDF.YrSold - HousePriceDF.YearRemodAdd
+
+
+# binary value for pool and misc feature - drop PoolArea & MiscVal from DF
+
+HousePriceDF['Pool'] = HousePriceDF.PoolArea.apply(lambda x: 0 if x==0 else 1)
+
+HousePriceDF['Misc'] = HousePriceDF.MiscVal.apply(lambda x: 0 if x==0 else 1)
+
+
+# Finished basement square footage
+HousePriceDF['BsmtFinTotSF'] = HousePriceDF.TotalBsmtSF - HousePriceDF.BsmtUnfSF
+
+
+# Total Square Footage
+HousePriceDF['TotalSF'] = (HousePriceDF.GrLivArea + 
+                        HousePriceDF.TotalBsmtSF + 
+                        HousePriceDF.GarageArea)
+
+# Total Baths
+HousePriceDF['TotalBath'] = ((HousePriceDF.FullBath + HousePriceDF.BsmtFullBath) +
+                          0.5 * (HousePriceDF.HalfBath + HousePriceDF.BsmtHalfBath))
+
+
+totaldf = pd.read_csv('finaldf.csv')
+
+
+
+
+# create a years since remodeled column   -  drop YearRemodAdd from DF  
+totaldf['YrSinceRm'] = totaldf.YrSold - totaldf.YearRemodAdd
+
+
+# binary value for pool and misc feature - drop PoolArea & MiscVal from DF
+
+totaldf['Pool'] = totaldf.PoolArea.apply(lambda x: 0 if x==0 else 1)
+
+totaldf['Misc'] = totaldf.MiscVal.apply(lambda x: 0 if x==0 else 1)
+
+
+# Finished basement square footage
+totaldf['BsmtFinTotSF'] = totaldf.TotalBsmtSF - totaldf.BsmtUnfSF
+
+
+# Total Square Footage
+totaldf['TotalSF'] = (totaldf.GrLivArea + 
+                        totaldf.TotalBsmtSF + 
+                        totaldf.GarageArea)
+
+# Total Baths
+totaldf['TotalBath'] = ((totaldf.FullBath + totaldf.BsmtFullBath) +
+                          0.5 * (totaldf.HalfBath + totaldf.BsmtHalfBath))
+
+
+
+
 
 
