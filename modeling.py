@@ -21,7 +21,7 @@ from sklearn.pipeline import Pipeline
 from sklearn.preprocessing import StandardScaler 
 
 
-totaldf = pd.read_csv('finaldf.csv')
+
 
 
 # set df = whatever the final output of our dataframe is 

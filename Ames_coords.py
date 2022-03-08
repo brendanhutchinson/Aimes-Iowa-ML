@@ -6,6 +6,8 @@ mapdata = pd.read_csv('Ames Real Estate Data.csv')
 run data_cleaning.py
 
 run manipulation
+from data_cleaning import *
+from manipulation import *
 
 locationdf = mapdata[['SchD_S', 'Prop_Addr', 'GeoRefNo' ,'MapRefNo']]
 
