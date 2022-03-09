@@ -141,7 +141,7 @@ grid_tree2 = {
 
 
 randomForest.set_params(random_state=42)
-grid_search_tree = ms.GridSearchCV(randomForest,grid_tree2, cv=5, n_jobs=-1)
+grid_search_tree = GridSearchCV(randomForest,grid_tree2, cv=5, n_jobs=-1)
  
 
 grid_search_tree.fit(X_train, y_train)
@@ -149,6 +149,26 @@ grid_search_tree.fit(X_train, y_train)
 
 print('Best parameters: '+ str(grid_search_tree.best_params_))
 print(grid_search_tree.best_score_)
+
+## Random FOrest GRid Search number 2 
+
+grid_tree5 = {
+    'max_depth': range(1, 16),
+    'n_estimators': range(10, 1000, 100),
+    'max_features' : [10,20,30,50,70],
+   
+    
+}
+
+randomForest.set_params(random_state=42)
+grid_search_tree = GridSearchCV(randomForest,grid_tree5, cv=5, n_jobs=-1)
+grid_search_tree.fit(X_train, y_train)
+
+
+print('Best parameters: '+ str(grid_search_tree.best_params_))
+print(grid_search_tree.best_score_)
+
+
 
 # Scoring test data set with tuned forest parameters 
 
@@ -171,13 +191,20 @@ randomForest.fit(X_train,y_train)
 randomForest.score(X_train,y_train)
 print(randomForest.score(X_test,y_test))
 
-# Random Forest Best Score 
+# Random Forest Best Score grid 1
 
 randomForest.set_params(random_state=42, n_estimators=700, max_features=30, max_depth = 14)
 randomForest.fit(X_train,y_train) 
 print(randomForest.score(X_train,y_train))
 print(randomForest.score(X_test,y_test))
 print("The best  test accuracy is: %.5f" %(randomForest.score(X_test, y_test)))
+
+# Random Forest Best Score grid 2
+
+randomForest.set_params(random_state=42, n_estimators=910, max_features=70, max_depth = 15)
+randomForest.fit(X_train,y_train) 
+randomForest.score(X_train,y_train)
+randomForest.score(X_test,y_test)
 
 
 
@@ -192,6 +219,82 @@ name, score = zip(*list(sort_X))
 pd.DataFrame({'feature':name,'score':score}).plot.barh(x='name', y='score')
 
 
+
+# bar graph of top 15 most important features 
+a = pd.DataFrame({'feature': name ,'score':score})[:15] 
+a.feature = [str(i) for i in a.feature]
+a.feature = [i.replace('b',"") for  i in a.feature]
+a.feature =[i.replace("\'",'') for i in a.feature]
+
+px.bar( a, x = 'feature', y='score')
+
+
+
+
+
+## Bagging 
+from sklearn import ensemble
+bagging = ensemble.BaggingRegressor()
+
+
+bagging.fit(X_train,y_train)
+bagging.score(X_test,y_test)
+
+
+bagging.set_params(n_estimators=50, random_state=42, max_features=70)
+bagging.fit(X_train, y_train)
+print("The training error of bagging forest is: %.5f" %(1 - bagging.score(X_train, y_train)))
+print("The test rror of bagging forest is: %.5f" %(1 - bagging.score(X_test, y_test)))
+print(bagging.score(X_train,y_train))
+print(bagging.score(X_test,y_test))
+
+
+# bagging grid search 
+
+
+
+grid_bag3 = {
+    'max_samples': range(2, 100,20),
+    'n_estimators': range(10, 500, 100),
+    'max_features' : [20,30,50,70],
+   }
+
+bagging.set_params()
+grid_search_bag = ms.GridSearchCV(bagging,grid_bag3,cv=5, n_jobs=-1)
+%time grid_search_bag.fit(X_train, y_train)
+
+
+grid_bag3 = {
+    'n_estimators': range(0, 700 ,50),
+   
+   }
+
+bagging.set_params()
+grid_search_bag = ms.GridSearchCV(bagging,grid_bag3,cv=5, n_jobs=-1)
+grid_search_bag.fit(X_train, y_train)
+
+
+grid_search_bag.best_params_
+
+bagging.set_params(random_state = 42 , n_estimators =100)
+bagging.fit(X_train,y_train)
+print(bagging.score(X_train,y_train))
+print(bagging.score(X_test,y_test))
+
+
+
+bagging.set_params(random_state = 42 , n_estimators =150)
+bagging.fit(X_train,y_train)
+print(bagging.score(X_train,y_train))
+print(bagging.score(X_test,y_test))
+
+
+# Bagging Best Score
+
+bagging.set_params(random_state = 42 , n_estimators =650)
+bagging.fit(X_train,y_train)
+print(bagging.score(X_train,y_train))
+print(bagging.score(X_test,y_test))
 
 
 
