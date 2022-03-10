@@ -1,6 +1,8 @@
 
 
 # Running cleaning and feature engineering and merging
+
+
 mapdata = pd.read_csv('Ames Real Estate Data.csv')
 
 run data_cleaning.py
@@ -36,6 +38,7 @@ for i in DF.Prop_Addr[:400]:
     idx = DF['Prop_Addr'].isin([i])
     DF.loc[idx,"latitude"]= geocode_result[0]['geometry']['location']['lat']
     DF.loc[idx,"longitude"] = geocode_result[0]['geometry']['location']['lng']
+    
 for i in DF.Prop_Addr[400:1000]: 
     time.sleep(1)
     geocode_result = gmaps.geocode(i)
