@@ -3,7 +3,7 @@
 """
 Created on Wed Mar  2 15:59:32 2022
 
-@author: francesco
+@author: Francesco
 """
 
 from manipulation import *
@@ -40,7 +40,7 @@ sc_y = StandardScaler()
 X = sc_X.fit_transform(X)
 y = sc_y.fit_transform(y)
 
-X_train, X_test, y_train, y_test = train_test_split(X_feat, y_feat.reshape(-1), test_size=0.30, random_state=42)
+X_train, X_test, y_train, y_test = train_test_split(X, y.reshape(-1), test_size=0.30, random_state=42)
 
 # setting, fitting and running the SVR
 
@@ -53,9 +53,9 @@ ans_svr  = grid.fit(X_train, y_train)
 # getting the best parameters, the best score, and R^2 for train and test set
 
 ans_svr.best_params_  # 'C': 53.578947368421055, 'epsilon': 0.1, 'gamma': 0.001
-print("The best score for SVR is: %.5f" % ans_svr.best_score_) # The best score for SVR is: 0.88946
+print("The best score for SVR is: %.5f" % ans_svr.best_score_) # The best score for SVR is: 0.88948
 
 svr_best = ans_svr.best_estimator_
 svr_best.fit(X_train, y_train)
-print("The R squared score for the test set is: %.5f" % (svr_best.score(X_train, y_train))) # 0.96889
-print("The R squared score for the test set is: %.5f" % (svr_best.score(X_test, y_test))) # 0.93323
+print("The R squared score for the test set is: %.5f" % (svr_best.score(X_train, y_train))) # 0.96585
+print("The R squared score for the test set is: %.5f" % (svr_best.score(X_test, y_test))) # 0.92870
